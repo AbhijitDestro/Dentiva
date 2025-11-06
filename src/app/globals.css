@@ -179,3 +179,8 @@ body {
     cursor: pointer;
   }
 }
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
