@@ -1,26 +1,27 @@
-"use server"
-import { prisma } from "../prisma";
+"use server";
+
 import { Gender } from "@prisma/client";
+import { prisma } from "../prisma";
 import { generateAvatar } from "../utils";
 import { revalidatePath } from "next/cache";
 
 export async function getDoctors() {
-    try {
-        const doctors = await prisma.doctor.findMany({
-            include: {
-                _count: { select: { appointments: true } },
-            },
-            orderBy: { createdAt: "desc" },
-        });
+  try {
+    const doctors = await prisma.doctor.findMany({
+      include: {
+        _count: { select: { appointments: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
 
-        return doctors.map((doctor) => ({
-            ...doctor,
-            appointmentCount: doctor._count.appointments,
-        }));
-    } catch (error) {
-        console.log("Error fetching doctors:", error);
-        throw new Error("Failed to fetch doctors");
-    }
+    return doctors.map((doctor) => ({
+      ...doctor,
+      appointmentCount: doctor._count.appointments,
+    }));
+  } catch (error) {
+    console.log("Error fetching doctors:", error);
+    throw new Error("Failed to fetch doctors");
+  }
 }
 
 interface CreateDoctorInput {

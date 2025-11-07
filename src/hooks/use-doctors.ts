@@ -1,4 +1,3 @@
-
 "use client";
 
 import { createDoctor, getAvailableDoctors, getDoctors, updateDoctor } from "@/lib/actions/doctors";
